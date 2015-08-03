@@ -42,3 +42,7 @@ ENTRYPOINT ["./javaw",\
             "-Xmx50m",\
             "/opt/myapp/myapp-all.jar"]
 ```
+
+# Credits
+* Jean Blanchard minimal java template based on busybox (https://registry.hub.docker.com/u/jeanblanchard/java/)
+* Alpine docker image
