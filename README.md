@@ -46,3 +46,6 @@ ENTRYPOINT ["./javaw",\
 # Credits
 * Jean Blanchard minimal java template based on busybox (https://registry.hub.docker.com/u/jeanblanchard/java/)
 * Alpine docker image
+
+# Source code
+See https://github.com/legdba/javaw

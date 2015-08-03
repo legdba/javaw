@@ -16,6 +16,8 @@
 # specific language governing permissions and limitations
 # under the License.
 ##############################################################
+# See https://github.com/legdba/javaw
+##############################################################
 FROM jeanblanchard/java:jdk-8u51
 MAINTAINER Vincent Bourdaraud <vincent@bourdaraud.com>
 COPY javaw /usr/local/bin/
