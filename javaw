@@ -13,7 +13,6 @@ _term() {
 trap _term SIGTERM
 trap _ctrlc INT
 
-echo "bash -c java $*"
 sh -c "java $*" &
 
 child=$!

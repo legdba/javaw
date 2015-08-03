@@ -32,7 +32,13 @@ MAINTAINER Vincent Bourdaraud <vincent@bourdaraud.com>
 # Define CMD and ENTRYPOINT. This is obviously not mandatory
 # but this is IMO the better way of using Dockerized application.
 CMD ["-someoption", "somevalue"]
-# Example with -jar option; any other way of running your application would work. I find fatJars to be an easier
-# way of running Dockerized applications though.
-ENTRYPOINT ["./javaw", "-jar", "-XX:OnOutOfMemoryError='kill -9 %p'", "-Xms50m", "-Xmx50m", "/opt/myapp/myapp-all.jar"]
+# Example with -jar option; any other way of running your application
+# would work. I find fatJars to be an easier way of running Dockerized
+# applications though.
+ENTRYPOINT ["./javaw",\
+            "-jar",\
+            "-XX:OnOutOfMemoryError='kill -9 %p'",\
+            "-Xms50m",\
+            "-Xmx50m",\
+            "/opt/myapp/myapp-all.jar"]
 ```
