@@ -1,0 +1,21 @@
+#!/bin/sh
+
+_ctrlc() {
+    echo "Caught Ctrl^C signal"
+    kill -TERM $child 2>/dev/null
+}
+
+_term() {
+    echo "Caught SIGTERM signal"
+    kill -TERM $child 2>/dev/null
+}
+
+trap _term SIGTERM
+trap _ctrlc INT
+
+echo "bash -c java $*"
+sh -c "java $*" &
+
+child=$!
+wait "$child"
+exit $?
