@@ -35,11 +35,12 @@ CMD ["-someoption", "somevalue"]
 # Example with -jar option; any other way of running your application
 # would work. I find fatJars to be an easier way of running Dockerized
 # applications though.
+# NOTE the lack of quotes around the kill command!!!
 ENTRYPOINT ["./javaw",\
-            "-jar",\
-            "-XX:OnOutOfMemoryError='kill -9 %p'",\
+            "-XX:OnOutOfMemoryError=kill -9 %p",\
             "-Xms50m",\
             "-Xmx50m",\
+            "-jar",\
             "/opt/myapp/myapp-all.jar"]
 ```
 

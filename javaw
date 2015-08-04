@@ -3,18 +3,23 @@
 _ctrlc() {
     echo "Caught Ctrl^C signal"
     kill -TERM $child 2>/dev/null
+    wait "$child"
+    exit $?
 }
 
 _term() {
     echo "Caught SIGTERM signal"
     kill -TERM $child 2>/dev/null
+    wait "$child"
+    exit $?
 }
 
 trap _term SIGTERM
 trap _ctrlc INT
 
-sh -c "java $*" &
-
+echo java "$@"
+java "$@" &
 child=$!
+
 wait "$child"
 exit $?
