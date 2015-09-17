@@ -21,4 +21,6 @@
 FROM jeanblanchard/java:jdk-8u51
 MAINTAINER Vincent Bourdaraud <vincent@bourdaraud.com>
 COPY javaw /usr/local/bin/
-RUN chmod a+x /usr/local/bin/javaw && javaw -version
+RUN chmod a+x /usr/local/bin/javaw && \
+    javaw -version # test this runs without error
+

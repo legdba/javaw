@@ -14,13 +14,13 @@ and Linux does not allow PID 1 to get killed with a KILL(9) signal. It would be 
 but since the JVM is no longer in a stable state that would not be reliable.
 
 To allow a KILL(9) to work java shall run as a child process of PID 1. This is exactly what this container is doing: running java as a child
-process of PID 1. This is basically achieved by running a 'sh -c "java $*"' entrypoint. But there is a bit more to the javaw script to
+process of PID 1 if the current process is PID 1 (if another PID is found, the java command is just execed). This is basically achieved by running a 'sh -c "java $*"' entrypoint. But there is a bit more to the javaw script to
 allow TERM(15) and Ctrl-C to be propagated from PID 1 to the java process so that to allow docker stop and Ctrl-C to propagate a TERM(15)
 signal to the java and git it the opportunity to perform a gracefull stop.
 
 # How to use this template?
 Use it as any other java template except that you call "javaw" instead of java command.
-You should as well set the '-XX:OnOutOfMemoryError="kill -9 %p"' java option.
+The '-XX:OnOutOfMemoryError=kill -9 %p' java option is automatically set (hard-coded in the script).
 
 Example:
 ```
@@ -32,14 +32,10 @@ MAINTAINER Vincent Bourdaraud <vincent@bourdaraud.com>
 # Define CMD and ENTRYPOINT. This is obviously not mandatory
 # but this is IMO the better way of using Dockerized application.
 CMD ["-someoption", "somevalue"]
-# Example with -jar option; any other way of running your application
-# would work. I find fatJars to be an easier way of running Dockerized
-# applications though.
+# See the example below (any other java syntax would work)
 # NOTE the lack of quotes around the kill command!!!
+ENV JAVA_OPTS="-Xms50m -Xmx50m"
 ENTRYPOINT ["./javaw",\
-            "-XX:OnOutOfMemoryError=kill -9 %p",\
-            "-Xms50m",\
-            "-Xmx50m",\
             "-jar",\
             "/opt/myapp/myapp-all.jar"]
 ```
@@ -50,3 +46,4 @@ ENTRYPOINT ["./javaw",\
 
 # Source code
 See https://github.com/legdba/javaw
+

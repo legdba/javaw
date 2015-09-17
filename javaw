@@ -32,12 +32,25 @@ _term() {
     exit $?
 }
 
-trap _term SIGTERM
-trap _ctrlc INT
+if [ "$$" -eq "1" ]
+then
+    # We run as PID 1, which means we are a regular contains
+    # and java would fail to auto-kill itself because PID 1
+    # cannot received kill -9.
+    # -> We start a child process, trap signals and propagate them.
+    trap _term SIGTERM
+    trap _ctrlc INT
+    echo java -XX:OnOutOfMemoryError='kill -9 %p' ${JAVA_OPTS} "$@"
+    java -XX:OnOutOfMemoryError='kill -9 %p' ${JAVA_OPTS} "$@" &
+    child=$!
+    wait "$child"
+    exit $?
+else
+    # We don't run as PID 1, which means we are a lucky container,
+    # probably run with "/bin/sh -c" or a Kubernetes POD container.
+    # Java will be able to auto-kill itself so we don't need to
+    # do anything :)
+    echo java -XX:OnOutOfMemoryError='kill -9 %p' ${JAVA_OPTS} "$@"
+    exec java -XX:OnOutOfMemoryError='kill -9 %p' ${JAVA_OPTS} "$@"
+fi
 
-echo java "$@"
-java "$@" &
-child=$!
-
-wait "$child"
-exit $?
