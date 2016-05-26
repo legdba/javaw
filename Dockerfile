@@ -18,9 +18,8 @@
 ##############################################################
 # See https://github.com/legdba/javaw
 ##############################################################
-FROM jeanblanchard/java:jdk-8u51
+FROM openjdk-8u91-jdk
 MAINTAINER Vincent Bourdaraud <vincent@bourdaraud.com>
 COPY javaw /usr/local/bin/
 RUN chmod a+x /usr/local/bin/javaw && \
     javaw -version # test this runs without error
-

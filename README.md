@@ -1,4 +1,5 @@
 [![License Apache](https://www.brimarx.com/pub/apache2.svg)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Docker Repository on Quay](https://quay.io/repository/legdba/javaw/status "Docker Repository on Quay")](https://quay.io/repository/legdba/javaw)
 # javaw
 Minimal Java image with a small wrapper to allow JVM to properly stop on Out of Memory (OOM) error.
 
@@ -40,10 +41,6 @@ ENTRYPOINT ["./javaw",\
             "-jar",\
             "/opt/myapp/myapp-all.jar"]
 ```
-
-# Credits
-* Jean Blanchard minimal java template based on busybox (https://registry.hub.docker.com/u/jeanblanchard/java/)
-* Alpine docker image
 
 # Source code
 See https://github.com/legdba/javaw
