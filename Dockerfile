@@ -18,7 +18,7 @@
 ##############################################################
 # See https://github.com/legdba/javaw
 ##############################################################
-FROM jeanblanchard/java:jdk-8u51
+FROM azul/zulu-openjdk-debian:8u92
 MAINTAINER Vincent Bourdaraud <vincent@bourdaraud.com>
 COPY javaw /usr/local/bin/
 RUN chmod a+x /usr/local/bin/javaw && \
