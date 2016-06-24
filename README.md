@@ -45,6 +45,10 @@ ENTRYPOINT ["./javaw",\
 # Source code
 See https://github.com/legdba/javaw
 
+# Why not using a lighter base image?
+Because lighter base images are built on Busybox or Alpine which are not (yet) supported byt
+the security scanners for Docker Hub or Quay.
+
 # License
 This software is under Apache 2.0 license.
 ```
